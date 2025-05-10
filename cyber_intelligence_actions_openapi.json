@@ -1,0 +1,219 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Cyber Intelligence Actions API",
+    "version": "1.0.0",
+    "description": "API para acciones OSINT y an\u00e1lisis en el agente 'Cyber Intelligence Analyst'"
+  },
+  "paths": {
+    "/ip-info": {
+      "get": {
+        "summary": "Obtener informaci\u00f3n de una IP",
+        "parameters": [
+          {
+            "name": "ip",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ipv4"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Informaci\u00f3n de IP obtenida con \u00e9xito"
+          }
+        }
+      }
+    },
+    "/email-check": {
+      "get": {
+        "summary": "Consultar reputaci\u00f3n de un correo electr\u00f3nico",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "email"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Datos de reputaci\u00f3n del correo"
+          }
+        }
+      }
+    },
+    "/domain-details": {
+      "get": {
+        "summary": "Obtener detalles de un dominio",
+        "parameters": [
+          {
+            "name": "domain",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalles del dominio obtenidos"
+          }
+        }
+      }
+    },
+    "/hash-lookup": {
+      "get": {
+        "summary": "Buscar hash en bases de datos de malware",
+        "parameters": [
+          {
+            "name": "hash",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado de b\u00fasqueda del hash"
+          }
+        }
+      }
+    },
+    "/correlate-iocs": {
+      "post": {
+        "summary": "Correlacionar indicadores de compromiso",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "iocs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "iocs"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Resultados de correlaci\u00f3n de IOCs"
+          }
+        }
+      }
+    },
+    "/generate-report": {
+      "post": {
+        "summary": "Generar informe de ciberinteligencia",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "content"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Informe generado correctamente"
+          }
+        }
+      }
+    },
+    "/send-alert": {
+      "post": {
+        "summary": "Enviar alerta de amenaza",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "channel": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "channel",
+                  "message"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Alerta enviada correctamente"
+          }
+        }
+      }
+    },
+    "/create-case": {
+      "post": {
+        "summary": "Crear caso de incidente",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "description"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Caso creado con \u00e9xito"
+          }
+        }
+      }
+    }
+  }
+}
